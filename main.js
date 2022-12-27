@@ -1,127 +1,116 @@
-// let savedPIN = "0001";
-// const login = ()=>{
-//     let ingresar = false;
-//     for (let i = 2; i >= 0; i--) {
-//     let userPIN = prompt("Ingresa tu pin");
-//     if(userPIN == savedPIN){
-//         alert("Bienvenido/a Ingreso exitoso");
-//         ingresar = true;
-//         break;
-//     }
-//     else{
-//         alert("Error, te quedan "+ i + " " + "oportunidades")
-//     }
+//funcion para interes de cuotas
+const impuestoCuotas = (precio,impuesto,cantidadCuotas) => {
+    precio = precio + (precio * impuesto)/100
+    precio = precio/cantidadCuotas
+    return precio
+}
+//función constructora para productos
+
+function producto (nombre, precio, stock){
+    this.nombre = nombre;
+    this.precio = precio;
+    this.stock = stock;
+    this.stockDisponible = (cantidad) =>{
+        if(cantidad <= this.stock){
+            this.stock = this.stock - cantidad
+        }
+        else{
+            alert("Sin stock")
+            
+        }
         
-//     }
-//     return ingresar 
-// }
-// console.log(login())
-
-// //cuenta
-// let exito = login()
-// if(exito){
-// let saldo = 35000;
-// let opcion = " "
-// while (opcion != "X") {
-// switch (opcion) {
-//     case "1":
-//         alert("Tu saldo es de $" + saldo)
-//         break;
-//     case "2":
-// let deposito = parseInt(prompt("Ingrese el monto que quiera depositar"))
-// saldo = saldo + deposito;
-// alert("Tu nuevo saldo es de $" + saldo)
-//         break;
-//     case "3":
-//        let retiro = parseInt(prompt("Ingrese el monto que quiera retirar"))
-//        if(retiro <= saldo){
-//         saldo = saldo - retiro;
-//         alert("retiraste $" + retiro + "Tu saldo es de " + saldo)
-
-//        }
-//        else{
-//         alert("Saldo insuficiente")
-//        } 
-//     break;
-
-//     default:
-//         alert("Opción no válida")
-//         break;
-// }
-// opcion = " "
-// }
-
-// }
+    }
+    
+}
+const pantalon = new producto ("Pantalón", 10000, 5)
+const remera = new producto ("Remera", 6000, 4)
+const camisa = new producto ("Camisa", 8000, 6)
+const buzo = new producto ("Buzo", 9000, 7)
+let cantidadUnidades = " "
 let monto = " "
-const productos = () => {
+
     let productos2 = prompt("Inserte un producto \n 1-Pantalón $10.000 \n 2-Remera $6.000 \n 3-Camisa $8.000 \n 4-Buzo $9000")
     switch (productos2) {
         case "1":
-            monto = 10000
-            
+            monto = pantalon.precio
+            pantalon.stockDisponible(cantidad = prompt("Cuantas unidades?"))
+            monto = monto * cantidad;
             break;
             case "2":
-                monto = 6000
-            
+                monto = remera.precio
+                remera.stockDisponible(cantidad = prompt("Cuantas unidades?"))
+            monto = monto * cantidad;
                 break;
                 case "3":
-                    monto = 8000
-            
+                monto = camisa.precio
+            camisa.stockDisponible(cantidad = prompt("Cuantas unidades?"))
+            monto = monto * cantidad;
             break;
             case "4":
-                monto = 9000
-            
-            break;
+                monto = buzo.precio
+             buzo.stockDisponible(cantidad = prompt("Cuantas unidades?"))
+            monto = monto * cantidad;
+                
         default:
             break;
     }
         
-    }
-    productos()
-    let a = productos;
-    if(a){
-        let i = prompt("desea agregar otro producto? \n 1-Pantalón $10.000 \n 2-Remera $6.000 \n 3-Camisa $8.000 \n 4-Buzo $9000, escriba esc para negar la pregunta")
-        switch (i) {
-            case "1":
-                monto += 10000
-                break;
-                case "2":
-                    monto += 6000
-                
+    let i = prompt("desea agregar otro producto?  si / no")
+        
+        while (i == "si" ) {
+           let a = prompt(" 1-Pantalón $10.000 \n 2-Remera $6.000 \n 3-Camisa $8.000 \n 4-Buzo $9000, escriba esc para negar la pregunta o para finalizar la operación")
+            switch (a) {
+                case "1":
+                    monto += pantalon.precio
+               
                     break;
-                    case "3":
-                        monto += 8000
-                
-                break;
-                case "4":
-                    monto += 9000
-                
-                break;
-            default:
-                break;
-        }
-    }
-        let medios = prompt("cómo prefiere pagarlo? cuotas/efectivo")
-        while (medios == "cuotas") {
+                    case "2":
+                        monto += remera.precio
+                    
+                        break;
+                        case "3":
+                            monto += camisa.precio
+                   
+                    
+                    break;
+                    case "4":
+                        monto += buzo.precio
+                    
+                    break;
+                default:
+                    break;
+            }
+           if(a == "esc"){
+            let medios = prompt("cómo prefiere pagarlo? cuotas/efectivo")
+        if (medios == "cuotas") {
                 let cantidad = prompt("Elija cantidad de cuotas: \n 3 \n 6 \n 9")
                 switch (cantidad) {
                     case "3":
-                        alert("Deberá abonar 3 cuotas de" + " $" + monto * 1.20 /3 )
+                        alert("Deberá abonar 3 cuotas de" + " $" + impuestoCuotas(monto, 10, 3) )
                         
                         break;
                         case "6":
-                            alert("Deberá abonar 6 cuotas de" + " $" + monto * 1.25 /6 )
+                            alert("Deberá abonar 6 cuotas de" + " $" + impuestoCuotas(monto, 20, 6) )
                             break;
                             case "9":
-                            alert("Deberá abonar 9 cuotas de" + " $" + monto * 1.40 /9)
+                            alert("Deberá abonar 9 cuotas de" + " $" + impuestoCuotas(monto, 30, 9))
                 
                     default:
                         break;
                 }
                 break
             }
-            if(medios == "efectivo"){
+            else if(medios == "efectivo"){
                 alert("Su precio final es de"+ " $" + monto)
+                break
             }
+            
+            else{
+                "Operación errónea"
+                break
+            }
+           }
+            
+        }
+    
         console.log(monto)
-
