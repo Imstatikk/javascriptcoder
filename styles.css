@@ -66,3 +66,53 @@ div .card{
     text-align: center;
     color: red;
 }
+.none{
+    display: none;
+}
+.formularioCompra{
+    display: flex;
+    width: 500px;
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin: 200px;
+    margin-left: 700px;
+          box-shadow: 0 0 10px 1px #eeeded;
+    padding: 15px;
+}
+.inputError{
+    color: red;
+}
+.btnBlock{
+    pointer-events: none;
+}
+.btnEnable{
+    pointer-events: all;
+}
+.errorBtn{
+    color:red
+}
+.btnComprarCarrito{
+   border-radius: 3px;
+   padding: 3px;
+   margin-left: 1650px;
+   background-color: rgb(0, 255, 0);
+   border: 1px solid gray;
+}
+.aComprarCarrito{
+    color: black;
+}
+.textTotal{
+    margin-left: 1650px;
+}
+.contadorCarrito{
+    background-color: black;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    display: none;
+    color: white;
+   text-align: center;
+}

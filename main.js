@@ -3,6 +3,8 @@ const busqueda = document.querySelector(".form-control")
 const contenedor = document.querySelector("#contenedorProductos")
 const imgCarrito = document.querySelector("#clickCarrito")
 const carritoC = document.querySelector("#carritoCompras")
+const contHTML = document.querySelector("header")
+const contadorCarrito = document.querySelector(".contadorCarrito")
 //Objetos
  const productos =[
     {
@@ -42,12 +44,13 @@ const carritoC = document.querySelector("#carritoCompras")
 
 let carrito= JSON.parse(localStorage.getItem("carrito")) || [];
 
-productos.forEach((elementos)=>{
+ productos.forEach((elementos)=>{
+    const {img, nombre, precio, id,stock} = elementos 
     let contenido = document.createElement("div");
-    contenido.innerHTML=`<img src=imgs/${elementos.img} class="card-img-top" alt="...">
+    contenido.innerHTML=`<img src=imgs/${img} class="card-img-top" alt="...">
    <div class="card-body">
-     <h5 class="card-title">${elementos.nombre.toUpperCase()}</h5>
-     <h6 class="precio">$${elementos.precio}</h6>
+     <h5 class="card-title">${nombre.toUpperCase()}</h5>
+     <h6 class="precio">$${precio}</h6>
      `
   contenedor.append(contenido)
   contenido.className= "card"
@@ -58,203 +61,33 @@ productos.forEach((elementos)=>{
   comprar.className = "btn";
   contenido.append(comprar);
   comprar.addEventListener("click", ()=>{
-    const repeticion = carrito.some((repetirProducto)=> repetirProducto.id === elementos.id);
+    const repeticion = carrito.some((repetirProducto)=> repetirProducto.id === id);
     if(repeticion){
         carrito.map((producto)=>{
-            if(producto.id === elementos.id){
+            if(producto.id === id){
                 producto.stock++;
             }
             
         })
     }else{
     carrito.push({
-        id: elementos.id,
-        nombre: elementos.nombre,
-        imagen: elementos.img,
-        precio: elementos.precio,
-        stock: elementos.stock,
+        id: id,
+        nombre: nombre,
+        imagen: img,
+        precio: precio,
+        stock: stock,
     })
     guardarLS(carrito)
 }  
+
+contadorRadiusCarrito()
   });
   
 });
 
 
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// crearHTML = (array)=>{
-// let indice;
-//  contenedor.innerHTML="";
-
-
-// for (const elementos  of array) {
-    
-
-
-// indice = `
-// <div class="card" style="width: 18rem;">
-//    <img src=imgs/${elementos.img} class="card-img-top" alt="...">
-//    <div class="card-body">
-//      <h5 class="card-title">${elementos.nombre.toUpperCase()}</h5>
-//      <button id = "compra" class="btn btn-primary">Comprar</button>
-//    </div>
-//  </div>
-//  `;
-//  contenedor.innerHTML+=indice;
-
-// }
-
-// }
-// crearHTML(productos)
-
-// function buscar (buscador){ 
-//     let e =productos.filter((el)=>{
-//        return el.nombre.includes(buscador)
-       
-//     })
-//     return e  
-// }
-// busqueda.addEventListener("input", ()=>{
-//    let a = buscar(busqueda.value)
-//     crearHTML(a)
-  
-// })
-
-
-
-
-
-
-
-
-// //funcion para interes de cuotas
-// const impuestoCuotas = (precio,impuesto,cantidadCuotas) => {
-//     precio = precio + (precio * impuesto)/100
-//     precio = precio/cantidadCuotas
-//     return precio
-// }
-// //función constructora para productos
-
-// function producto (nombre, precio, stock){
-//     this.nombre = nombre;
-//     this.precio = precio;
-//     this.stock = stock;
-//     this.stockDisponible = (cantidad) =>{
-//         if(cantidad <= this.stock){
-//             this.stock = this.stock - cantidad
-//         }
-//         else{
-//             alert("Sin stock")
-            
-//         }
-        
-//     }
-    
-// }
-// const pantalon = new producto ("Pantalón", 10000, 5)
-// const remera = new producto ("Remera", 6000, 4)
-// const camisa = new producto ("Camisa", 8000, 6)
-// const buzo = new producto ("Buzo", 9000, 7)
-// let cantidadUnidades = " "
-// let monto = " "
-
-//     let productos2 = prompt("Inserte un producto \n 1-Pantalón $10.000 \n 2-Remera $6.000 \n 3-Camisa $8.000 \n 4-Buzo $9000")
-//     switch (productos2) {
-//         case "1":
-//             monto = pantalon.precio
-//             pantalon.stockDisponible(cantidad = prompt("Cuantas unidades?"))
-//             monto = monto * cantidad;
-//             break;
-//             case "2":
-//                 monto = remera.precio
-//                 remera.stockDisponible(cantidad = prompt("Cuantas unidades?"))
-//             monto = monto * cantidad;
-//                 break;
-//                 case "3":
-//                 monto = camisa.precio
-//             camisa.stockDisponible(cantidad = prompt("Cuantas unidades?"))
-//             monto = monto * cantidad;
-//             break;
-//             case "4":
-//                 monto = buzo.precio
-//              buzo.stockDisponible(cantidad = prompt("Cuantas unidades?"))
-//             monto = monto * cantidad;
-                
-//         default:
-//             break;
-//     }
-        
-//     let i = prompt("desea agregar otro producto?  si / no")
-        
-//         while (i == "si" ) {
-//            let a = prompt(" 1-Pantalón $10.000 \n 2-Remera $6.000 \n 3-Camisa $8.000 \n 4-Buzo $9000, escriba esc para negar la pregunta o para finalizar la operación")
-//             switch (a) {
-//                 case "1":
-//                     monto += pantalon.precio
-               
-//                     break;
-//                     case "2":
-//                         monto += remera.precio
-                    
-//                         break;
-//                         case "3":
-//                             monto += camisa.precio
-                   
-                    
-//                     break;
-//                     case "4":
-//                         monto += buzo.precio
-                    
-//                     break;
-//                 default:
-//                     break;
-//             }
-//            if(a == "esc"){
-//             let medios = prompt("cómo prefiere pagarlo? cuotas/efectivo")
-//         if (medios == "cuotas") {
-//                 let cantidad = prompt("Elija cantidad de cuotas: \n 3 \n 6 \n 9")
-//                 switch (cantidad) {
-//                     case "3":
-//                         alert("Deberá abonar 3 cuotas de" + " $" + impuestoCuotas(monto, 10, 3) )
-                        
-//                         break;
-//                         case "6":
-//                             alert("Deberá abonar 6 cuotas de" + " $" + impuestoCuotas(monto, 20, 6) )
-//                             break;
-//                             case "9":
-//                             alert("Deberá abonar 9 cuotas de" + " $" + impuestoCuotas(monto, 30, 9))
-                
-//                     default:
-//                         break;
-//                 }
-//                 break
-//             }
-//             else if(medios == "efectivo"){
-//                 alert("Su precio final es de"+ " $" + monto)
-//                 break
-//             }
-            
-//             else{
-//                 "Operación errónea"
-//                 break
-//             }
-//            }
-            
-//         }
-    
-//         console.log(monto)
-        
+fetch("./data/data.json")
+.then((response) => response.json())
+.then((data)=>{
+    console.log(data);
+});
