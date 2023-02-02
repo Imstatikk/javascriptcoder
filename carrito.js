@@ -17,10 +17,10 @@ const pintarCarrito =()=>{
     contenidoCarrito.className="carritoContent"
     const{imagen, nombre, precio, stock} = elementos
     contenidoCarrito.innerHTML= `<img src=imgs/${imagen} class="imagenProductosCarrito" alt="...">
-    <h3>${nombre}</h3>
+    <h3>${nombre.toUpperCase()}</h3>
     <p>$${precio}</p>
     <span class="cantidadCarrito">Cantidad:${stock}</span>
-    <span> total:${stock * precio} </span>
+    <span> Total:${stock * precio} </span>
     </div>`
     carritoC.append(contenidoCarrito)
     let eliminarProd = document.createElement("button")
@@ -40,6 +40,7 @@ const comprarCarrito = document.createElement("button");
 comprarCarrito.innerText = "Comprar Carrito"
 comprarCarrito.className = "btnComprarCarrito"
 comprarCarrito.innerHTML = `<a class= aComprarCarrito href="./formulario.html">Comprar Carrito</a>`
+
 if (carrito.length === 0) {
   comprarCarrito.style.display = "none"
 
@@ -74,4 +75,6 @@ const contadorRadiusCarrito = ()=>{
   contadorCarrito.style.display = "block";
   contadorCarrito.innerText = carrito.length
 }
+
+
 
